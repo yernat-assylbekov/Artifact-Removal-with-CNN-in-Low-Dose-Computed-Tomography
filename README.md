@@ -5,6 +5,10 @@ In this project, I train U-Net type Neural Network from scratch to remove artifa
 
 ![alt text](https://github.com/yernat-assylbekov/Artifact-Removal-with-CNN-in-Low-Dose-Computed-Tomography/blob/master/u_net_architecture.png?raw=true)<br>
 
+## Training Details
+
+$\mathbb R^3$
+
 
 ## References
 
