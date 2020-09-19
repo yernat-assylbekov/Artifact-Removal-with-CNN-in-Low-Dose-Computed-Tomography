@@ -8,7 +8,9 @@ In this project, I train U-Net type Neural Network from scratch to remove artifa
 ## Training Details
 
 I use noise-to-signal ratio (<img src="https://render.githubusercontent.com/render/math?math=\text{NSR}">) as a loss function.  If <img src="https://render.githubusercontent.com/render/math?math=\displaystyle x=(x_{ij})_{i,j=1}^n"> is a ground <img src="https://render.githubusercontent.com/render/math?math=\displaystyle n\times n"> truth image and <img src="https://render.githubusercontent.com/render/math?math=\displaystyle \hat x=(\hat x_{ij})_{i,j=1}^n"> is the reconstructed <img src="https://render.githubusercontent.com/render/math?math=\displaystyle n\times n"> image, then<br>
-<center><img src="https://render.githubusercontent.com/render/math?math=\displaystyle\text{NSR}(x,\hat x)=\frac{\sqrt{\sum_{i,j=1}^n (x_{ij} - \hat x_{ij})^2}}{\sqrt{\sum_{i,j=1}^n x_{ij}^2}}."> </center>
+<p align="center">
+  <img src="https://render.githubusercontent.com/render/math?math=\displaystyle\text{NSR}(x,\hat x)=\frac{\sqrt{\sum_{i,j=1}^n (x_{ij} - \hat x_{ij})^2}}{\sqrt{\sum_{i,j=1}^n x_{ij}^2}}.">
+</p>
 
 
 ## References
