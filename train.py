@@ -1,31 +1,50 @@
-from model import Modified_U_Net, SNR
-from utils import generate_data
-from tensorflow.keras.callbacks import ModelCheckpoint, EarlyStopping
+import tensorflow as tf
+from model import U_Net, avg_NSR, avg_log_SNR
+from utils import read_data, print_data_samples, print_model_outputs
+from tensorflow.keras.callbacks import ModelCheckpoint
 
-# generate training data of ellipses
-Y_train, X_train = generate_training_data(image_size=128, number_of_images=3200, number_of_angles=50)
+# read the data
+path = 'minideeplesion/*/*.png'
+train_set_X, train_set_Y, val_set_X, val_set_Y, test_set_X, test_set_Y = read_data(path, number_of_angles=50)
 
 # print few samples from the training set
-print_data_samples(Y_train, X_train, n_samples=4)
+print_data_samples(train_set_X, train_set_Y)
 
-# create an instance of the modified U-net model
-model = Modified_U_Net(input_size=128, input_channels=1, filters=16, learning_rate=0.001, scale=0.01)
+# create an instance of the U-Net model
+unet = U_Net(input_size=128, input_channels=1, filters=64, learning_rate=0.001)
 
-# set up checkpoint and earlystopping
-checkpoint = ModelCheckpoint(filepath='model.ckpt', save_best_only=True, monitor='val_SNR', mode='max', verbose=1)
-earlystopping = EarlyStopping(monitor='val_SNR', mode='max', verbose=1, patience=50, restore_best_weights=True)
+# set up checkpoint
+checkpoint = ModelCheckpoint(filepath='./unet_checkpoints/', save_best_only=True, save_weights_only=True, monitor='val_avg_log_SNR', mode='max', verbose=1)
 
 # train the model
-model.fit(x=X_train, y=Y_train, validation_split=0.05, batch_size=32, epochs=100, callbacks=[checkpoint, earlystopping])
+history = unet.fit(x=train_set_X, y=train_set_Y, validation_data=(val_set_X, val_set_Y), batch_size=32, epochs=30, callbacks=[checkpoint])
 
-# print few results of outputs of the model on the training set
-print_model_outputs(model, Y_train, X_train, n_samples=4)
+# print the learning curve and the progress of average logSNR
+plt.plot(history.history['avg_log_SNR'])
+plt.title('Average logSNR')
+plt.show()
 
-# generate training data of rectangles
-Y_test, X_test = generate_testing_data(image_size=128, number_of_images=200, number_of_angles=50)
+plt.plot(history.history['loss'])
+plt.title('Learning Curve')
+plt.show()
 
-# compute average SNR on the test set
-print('Average SNR on the test set: {}.'.format(SNR(Y_test, model(X_test))))
+# load the weights of the model with best performance on the validation set
+unet.load_weights('./unet_checkpoints/')
 
-# print few results of outputs of the model on the test set
-print_model_outputs(model, Y_test, X_test, n_samples=4)
+# check the performance of unet on the testing set
+y_pred = unet.predict(test_set_X)
+print('average logSNR of U-Net on the testing set: {}'.format(avg_log_SNR(test_set_Y, y_pred).numpy()))
+print('average SSIM of U-Net on the testing set: {}'.format(tf.math.reduce_mean(tf.image.ssim(test_set_Y, y_pred, 1.)).numpy()))
+
+# check the performance of FBP on the testing set
+print('average logSNR of FBP on the testing set: {}'.format(avg_log_SNR(test_set_Y, test_set_X).numpy()))
+print('average SSIM of FBP on the testing set: {}'.format(tf.math.reduce_mean(tf.image.ssim(test_set_Y, test_set_X, 1.)).numpy()))
+
+# print few results of outputs of the U-Net on the training set
+print_model_outputs(unet, train_set_X[:4], train_set_Y[:4], 'Training Data')
+
+# print few results of outputs of the U-Net on the validation set
+print_model_outputs(unet, val_set_X[:4], val_set_Y[:4], 'Validation Data')
+
+# print few results of outputs of the model on the testing set
+print_model_outputs(unet, test_set_X[:4], test_set_Y[:4], 'Testing Data')
