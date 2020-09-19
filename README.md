@@ -7,7 +7,7 @@ In this project, I train U-Net type Neural Network from scratch to remove artifa
 
 ## Training Details
 
-$\mathbb R^3$
+<img src="https://render.githubusercontent.com/render/math?math=\mathbb R^3">
 
 
 ## References
