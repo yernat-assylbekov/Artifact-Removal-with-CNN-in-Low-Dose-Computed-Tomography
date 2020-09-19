@@ -7,7 +7,9 @@ The dataset was downloaded from https://www.kaggle.com/kmader/nih-deeplesion-sub
 
 ![alt text](https://github.com/yernat-assylbekov/Artifact-Removal-with-CNN-in-Low-Dose-Computed-Tomography/blob/master/sample_data.png?raw=true)<br>
 
-Top row is for reconstructed images, which contain some artifacts, via FBP and the bottom row is for ground truth images.
+Top row is for reconstructed images, which contain some artifacts, via FBP and the bottom row is for ground truth images.<br>
+
+I trained on 32,256 images, validated on 512 images and tested on the rest 566 images.
 
 ## Network Architecture
 
@@ -20,13 +22,34 @@ I use noise-to-signal ratio (<img src="https://render.githubusercontent.com/rend
   <img src="https://render.githubusercontent.com/render/math?math=\displaystyle\text{NSR}(x,\hat x)=\frac{\sqrt{\sum_{i,j=1}^n (x_{ij} - \hat x_{ij})^2}}{\sqrt{\sum_{i,j=1}^n x_{ij}^2}}.">
 </p>
 
-I use the Adam optimizer with `learning_rate = 0.001`, `beta_1 = 0.9` and `beta_2 = 0.999`. I trained the model with an NVIDIA K80 GPU for approximately 1 hour and 17 minutes.
+I use the Adam optimizer with `learning_rate = 0.001`, `beta_1 = 0.9` and `beta_2 = 0.999`. I trained the model with an NVIDIA K80 GPU for 30 epochs for approximately 1 hour and 17 minutes. 
 
 ## Results
 
-Here is the learning curve
+We use logSNR (logarithmic signal-to-noise ratio) and SSIM (structural similarity index measure) as quantitative metrics. If <img src="https://render.githubusercontent.com/render/math?math=\displaystyle x=(x_{ij})_{i,j=1}^n"> is a ground nxn truth image and <img src="https://render.githubusercontent.com/render/math?math=\displaystyle \hat x=(\hat x_{ij})_{i,j=1}^n"> is the reconstructed nxn image, then<br>
+<p align="center">
+  <img src="https://render.githubusercontent.com/render/math?math=\displaystyle\text{logSNR}(x,\hat x)=20\log_{10}\frac{\sqrt{\sum_{i,j=1}^n x_{ij}^2}}{\sqrt{\sum_{i,j=1}^n (x_{ij} - \hat x_{ij})^2}}.">
+</p>
+
+Here is the learning curve:
 
 ![alt text](https://github.com/yernat-assylbekov/Artifact-Removal-with-CNN-in-Low-Dose-Computed-Tomography/blob/master/learning_curve.png?raw=true)<br>
+
+Here is the progress for the average logSNR:
+
+![alt text](https://github.com/yernat-assylbekov/Artifact-Removal-with-CNN-in-Low-Dose-Computed-Tomography/blob/master/avg_logSNR.png?raw=true)<br>
+
+Below we give examples of comparison of reconstructed images using FBP and FBPConvNet on the training, validation and test sets:
+
+![alt text](https://github.com/yernat-assylbekov/Artifact-Removal-with-CNN-in-Low-Dose-Computed-Tomography/blob/master/training_data_ex.png?raw=true)<br>
+
+![alt text](https://github.com/yernat-assylbekov/Artifact-Removal-with-CNN-in-Low-Dose-Computed-Tomography/blob/master/validation_data_ex.png?raw=true)<br>
+
+![alt text](https://github.com/yernat-assylbekov/Artifact-Removal-with-CNN-in-Low-Dose-Computed-Tomography/blob/master/testing_data_ex.png?raw=true)<br>
+
+Below is the table of quantitative comparison of FBP and FBPConvNet on the test set using logSNR and SSIM:
+
+![alt text](https://github.com/yernat-assylbekov/Artifact-Removal-with-CNN-in-Low-Dose-Computed-Tomography/blob/master/table_of_comparison_numeric.png?raw=true)<br>
 
 ## References
 
