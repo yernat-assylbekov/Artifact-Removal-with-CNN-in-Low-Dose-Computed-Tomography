@@ -7,6 +7,8 @@ The dataset was downloaded from https://www.kaggle.com/kmader/nih-deeplesion-sub
 
 ![alt text](https://github.com/yernat-assylbekov/Artifact-Removal-with-CNN-in-Low-Dose-Computed-Tomography/blob/master/sample_data.png?raw=true)<br>
 
+Top row is for reconstructed images, which contain some artifacts, via FBP and the bottom row is for ground truth images.
+
 ## Network Architecture
 
 ![alt text](https://github.com/yernat-assylbekov/Artifact-Removal-with-CNN-in-Low-Dose-Computed-Tomography/blob/master/u_net_architecture.png?raw=true)<br>
