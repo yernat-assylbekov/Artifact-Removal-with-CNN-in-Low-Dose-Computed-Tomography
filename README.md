@@ -19,7 +19,7 @@ I use noise-to-signal ratio (<img src="https://render.githubusercontent.com/rend
 <p align="center">
   <img src="https://render.githubusercontent.com/render/math?math=\displaystyle\text{NSR}(x,\hat x)=\frac{\sqrt{\sum_{i,j=1}^n (x_{ij} - \hat x_{ij})^2}}{\sqrt{\sum_{i,j=1}^n x_{ij}^2}}.">
 </p>
-I use the Adam optimizer with `learning_rate = 0.001`, `beta_1 = 0.9` and `beta_2=0.999`. I trained the model with an NVIDIA K80 GPU for approximately 1 hour and 17 minutes.
+I use the Adam optimizer with `learning_rate = 0.001`, `beta_1 = 0.9` and `beta_2 = 0.999`. I trained the model with an NVIDIA K80 GPU for approximately 1 hour and 17 minutes.
 
 ## Results
 
