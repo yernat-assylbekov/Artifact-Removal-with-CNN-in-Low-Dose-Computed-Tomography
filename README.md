@@ -5,7 +5,7 @@ In this project, I train U-Net type Neural Network known as FBPConvNet from scra
 
 The dataset was downloaded from https://www.kaggle.com/kmader/nih-deeplesion-subset which consists of 32,120 axial CT slices from 10,594 CT scans (studies) of 4,427 unique patients. Due to a limited resources, the images were preprocessed and resized to 128x128. Those images are used as ground truth. To make low-dose CT reconstruction images, we first create sinograms via Radon transform with 50 sparse angles. Then we invert these sinograms via filtered backprojection (FBP) algorithm. To implement these two steps we use `radon` and `iradon` functions from `skimage.transform` package. Here are sample images from the dataset
 
-![alt text](https://github.com/yernat-assylbekov/Artifact-Removal-with-CNN-in-Low-Dose-Computed-Tomography/blob/master/sample_data.png?raw=true)<br>
+![alt text](https://github.com/yernat-assylbekov/Artifact-Removal-with-CNN-in-Low-Dose-Computed-Tomography/blob/master/images/sample_data.png?raw=true)<br>
 
 Top row is for reconstructed images, which contain some artifacts, via FBP and the bottom row is for ground truth images.<br>
 
@@ -13,7 +13,7 @@ I trained on 32,256 images, validated on 512 images and tested on the rest 566 i
 
 ## Network Architecture
 
-![alt text](https://github.com/yernat-assylbekov/Artifact-Removal-with-CNN-in-Low-Dose-Computed-Tomography/blob/master/u_net_architecture.png?raw=true)<br>
+![alt text](https://github.com/yernat-assylbekov/Artifact-Removal-with-CNN-in-Low-Dose-Computed-Tomography/blob/master/images/u_net_architecture.png?raw=true)<br>
 
 ## Training Details
 
@@ -33,23 +33,23 @@ We use logSNR (logarithmic signal-to-noise ratio) and SSIM (structural similarit
 
 Here is the learning curve:
 
-![alt text](https://github.com/yernat-assylbekov/Artifact-Removal-with-CNN-in-Low-Dose-Computed-Tomography/blob/master/learning_curve.png?raw=true)<br>
+![alt text](https://github.com/yernat-assylbekov/Artifact-Removal-with-CNN-in-Low-Dose-Computed-Tomography/blob/master/images/learning_curve.png?raw=true)<br>
 
 Here is the progress for the average logSNR:
 
-![alt text](https://github.com/yernat-assylbekov/Artifact-Removal-with-CNN-in-Low-Dose-Computed-Tomography/blob/master/avg_logSNR.png?raw=true)<br>
+![alt text](https://github.com/yernat-assylbekov/Artifact-Removal-with-CNN-in-Low-Dose-Computed-Tomography/blob/master/images/avg_logSNR.png?raw=true)<br>
 
 Below we give examples of comparison of reconstructed images using FBP and FBPConvNet on the training, validation and test sets:
 
-![alt text](https://github.com/yernat-assylbekov/Artifact-Removal-with-CNN-in-Low-Dose-Computed-Tomography/blob/master/training_data_ex.png?raw=true)<br>
+![alt text](https://github.com/yernat-assylbekov/Artifact-Removal-with-CNN-in-Low-Dose-Computed-Tomography/blob/master/images/training_data_ex.png?raw=true)<br>
 
-![alt text](https://github.com/yernat-assylbekov/Artifact-Removal-with-CNN-in-Low-Dose-Computed-Tomography/blob/master/validation_data_ex.png?raw=true)<br>
+![alt text](https://github.com/yernat-assylbekov/Artifact-Removal-with-CNN-in-Low-Dose-Computed-Tomography/blob/master/images/validation_data_ex.png?raw=true)<br>
 
-![alt text](https://github.com/yernat-assylbekov/Artifact-Removal-with-CNN-in-Low-Dose-Computed-Tomography/blob/master/testing_data_ex.png?raw=true)<br>
+![alt text](https://github.com/yernat-assylbekov/Artifact-Removal-with-CNN-in-Low-Dose-Computed-Tomography/blob/master/images/testing_data_ex.png?raw=true)<br>
 
 Below is the table of quantitative comparison of FBP and FBPConvNet on the test set using logSNR and SSIM:
 
-![alt text](https://github.com/yernat-assylbekov/Artifact-Removal-with-CNN-in-Low-Dose-Computed-Tomography/blob/master/table_of_comparison_numeric.png?raw=true)<br>
+![alt text](https://github.com/yernat-assylbekov/Artifact-Removal-with-CNN-in-Low-Dose-Computed-Tomography/blob/master/images/table_of_comparison_numeric.png?raw=true)<br>
 
 ## References
 
