@@ -1,6 +1,6 @@
 import tensorflow as tf
 
-from tensorflow.keras.layers import Conv2D, BatchNormalization, Conv2DTranspose, Input, concatenate, ReLU
+from tensorflow.keras.layers import Conv2D, BatchNormalization, Conv2DTranspose, Input, concatenate, ReLU, MaxPool2D
 from tensorflow.keras import Model
 from tensorflow.keras.optimizers import Adam
 
